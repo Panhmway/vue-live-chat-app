@@ -1,16 +1,26 @@
 <template>
   <div class="welcome container">
-    <singup></singup>
-    <login></login>
+      <div v-if="showLoginForm">
+            <login></login>
+         <p>Not a Member? <span @click="showLoginForm=!showLoginForm">Create Account ?</span></p>
+      </div>
+      <div v-else>
+         <singup></singup>
+         <p>Already Account? <span @click="showLoginForm=!showLoginForm">Login Account ?</span></p>
+      </div>
   </div>
 </template>
 
 <script>
+import { ref } from '@vue/reactivity'
 import Login from '../components/Login.vue'
 import Singup from '../components/Singup.vue'
 export default {
   components: { Singup, Login },
-
+  setup() {
+    let showLoginForm = ref(true);
+    return {showLoginForm};
+  }
 }
 </script>
 
@@ -39,7 +49,7 @@ export default {
   }
   .welcome span{
     font-weight: bold;
-    text-decoration: underline;
+    text-decoration: underline; 
     cursor: pointer;
   }
   .welcome button {
